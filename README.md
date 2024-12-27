@@ -1,1 +1,1 @@
-# ps-managing-github-actions
+### Study material for PluralSight managing-github-actions
