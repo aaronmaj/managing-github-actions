@@ -1,0 +1,25 @@
+name: My Membership Caller Workflow
+on:
+  workflow_dispatch:
+    inputs:
+      feature:
+        description: 'Which feature to deploy'
+        required: true
+        type: choice
+        options:
+          - class_schedule
+          - membership
+          - training
+
+jobs:
+  class_schedule:
+    if: github.event.inputs.feature == 'class_schedule'
+    uses: ./.github/workflows/class-schedule.yml
+
+  membership:
+    if: github.event.inputs.feature == 'membership'
+    uses: ./.github/workflows/membership.yml
+
+  training:
+    if: github.event.inputs.feature == 'training'
+    uses: ./.github/workflows/training.yml
