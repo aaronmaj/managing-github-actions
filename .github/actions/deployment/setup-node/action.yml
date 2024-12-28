@@ -9,6 +9,10 @@ inputs:
     description: 'Cache to use (npm/yarn)'
     required: false
     default: 'npm'
+  clean-install:
+    description: 'Whether to perform a clean install of dependencies'
+    required: false
+    default: 'false'
 
 runs:
   using: 'composite'
@@ -20,7 +24,6 @@ runs:
           echo "Invalid cache input: ${{ inputs.cache }}"
           exit 1
         fi
-        
 
     - name: Set up Node.js
       uses: actions/setup-node@v4
@@ -31,7 +34,13 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        if [ "${{ inputs.install-cache }}" == "true" ]; then
+        if [ "${{ inputs.clean-install }}" == "true" ]; then
           rm -rf node_modules package-lock.json
-
+          npm install
+        else
+          npm ci
         fi
+
+    - name: Build
+      shell: bash
+      run: npm run build
