@@ -27,7 +27,6 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
         cache: ${{ inputs.cache }}
-        cache-dependency-path: '**/package-lock.json'
 
     - name: Install dependencies
       shell: bash
