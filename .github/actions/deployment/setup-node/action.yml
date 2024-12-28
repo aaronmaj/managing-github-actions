@@ -1,0 +1,37 @@
+name: 'Set up Node.js environment'
+description: 'Set up Node.js and install dependencies'
+inputs:
+  node-version:
+    description: 'The Node.js version to use'
+    required: false
+    default: '20.x'
+  cache:
+    description: 'Cache to use (npm/yarn)'
+    required: false
+    default: 'npm'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Validate cache input
+      shell: bash
+      run: |
+        if [[ "${{ inputs.cache }}" != 'npm' && "${{ inputs.cache }}" != 'yarn' ]]; then
+          echo "Invalid cache input: ${{ inputs.cache }}"
+          exit 1
+        fi
+        
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: ${{ inputs.cache }}
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        if [ "${{ inputs.install-cache }}" == "true" ]; then
+          rm -rf node_modules package-lock.json
+
+        fi
