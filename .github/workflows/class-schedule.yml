@@ -10,7 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - uses: aaronmaj/.github/actions/deployment/setup-node.yml@main
+      - uses: aaronmaj/.github/actions/deployment/setup-node@main
         with:
           node-version: '20.x'
           cache: 'npm'
